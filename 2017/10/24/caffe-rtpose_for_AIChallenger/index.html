@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-10-24/37384567.jpg">
 <meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-10-24/83394828.jpg">
 <meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-10-24/99549480.jpg">
-<meta property="og:updated_time" content="2017-10-24T13:59:03.000Z">
+<meta property="og:updated_time" content="2017-10-24T14:51:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="caffe-rtpose for AIChallenger">
 <meta name="twitter:description" content="20171023 test record for AIChallenger Testtest situationModel: realtime pose designed by CMU ZheC version:caffe_rtpose with iteration 180000+50000 training data: AIC_training_data test num_scale: 3 te">
@@ -381,10 +381,21 @@
 <h3 id="Train-Loss"><a href="#Train-Loss" class="headerlink" title="Train Loss"></a>Train Loss</h3><a id="more"></a>
 <h3 id="test-result"><a href="#test-result" class="headerlink" title="test result"></a>test result</h3><p>目前观看测试图像 1500 张；</p>
 <ul>
-<li><p>测试图像中出现 边连接 （0,0,0）；出现连接（width, 0, 0）当测试时，图像输入三个 scale，1，0.85, 0.7时会出现边角点误检测的问题；<br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/7265755.jpg" alt="w1"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/53593528.jpg" alt="w2"></p>
-</li>
-<li><p>当同一个人体间检测关键点重合，会导致同一个人边的错连<br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/40225197.jpg" alt="wrong2"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/50768667.jpg" alt="w3"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/90983464.jpg" alt="w7"></p>
-</li>
+<li>测试图像中出现 边连接 （0,0,0）或者出现连接（width, 0, 0）当测试时，图像输入三个 scale，1，0.85, 0.7时会出现边角点误检测的问题；</li>
+</ul>
+<p><strong>解决方案</strong>: </p>
+<pre><code>1. 提升两个关键点连线的 connection_threshold；
+2. 提高nms_threshold, 减少误检测
+3. 设置图像四个角为 无效区域
+</code></pre><p><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/7265755.jpg" alt="w1"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/53593528.jpg" alt="w2"></p>
+<ul>
+<li>当同一个人体间检测关键点重合，会导致同一个人边的错连    </li>
+</ul>
+<p><strong>解决方案</strong>:</p>
+<pre><code>1. 模型继续训练，提高检测关键点的recall和accuracy
+2. 提高connection_threshold, 减少误匹配 
+</code></pre><p><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/40225197.jpg" alt="wrong2"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/50768667.jpg" alt="w3"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/90983464.jpg" alt="w7"></p>
+<ul>
 <li><p>当检测关键点 缺失未被检测，容易发生不同人体间关键点的连接<br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-24/30937709.jpg" alt="w20"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/83985457.jpg" alt="wrong3"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/75151351.jpg" alt="w4"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/63324137.jpg" alt="27"></p>
 </li>
 <li><p>体操运动员 腿部关键点未检测<br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-23/76987639.jpg" alt="wrong4">  </p>
