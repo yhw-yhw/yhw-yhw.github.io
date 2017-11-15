@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ICCV_2017, SinglePersonPoseEstimation," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Abstract问题的难点：  当摄像机视角变话或者视角发生严重缩短，导致图像虚化 带来的人体骨架部位的尺度变化； pyramid methods经常在使用在inference阶段对图像进行尺度改变，在DCNNs中学习特征pyramids还未被开发  本篇文章重点：  设计 PRMs(Pyramid Residual Module) 来捕捉 DCNN 中尺度的变化，PRMs会从 不同尺度的输入特征">
+<meta name="keywords" content="ICCV_2017, SinglePersonPoseEstimation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Learning Feature Pyramids for Human Pose Estimation">
+<meta property="og:url" content="http://yoursite.com/2017/11/12/Learning-Feature-Pyramids-for-Human-Pose-Estimation/index.html">
+<meta property="og:site_name" content="珍惜这一份幸运">
+<meta property="og:description" content="Abstract问题的难点：  当摄像机视角变话或者视角发生严重缩短，导致图像虚化 带来的人体骨架部位的尺度变化； pyramid methods经常在使用在inference阶段对图像进行尺度改变，在DCNNs中学习特征pyramids还未被开发  本篇文章重点：  设计 PRMs(Pyramid Residual Module) 来捕捉 DCNN 中尺度的变化，PRMs会从 不同尺度的输入特征">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-15/91471002.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-15/54392120.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-15/32256017.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-15/13550205.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-15/65027117.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-15/95311625.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-15/44357927.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-15/8242726.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-15/5482896.jpg">
+<meta property="og:updated_time" content="2017-11-15T03:02:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Learning Feature Pyramids for Human Pose Estimation">
+<meta name="twitter:description" content="Abstract问题的难点：  当摄像机视角变话或者视角发生严重缩短，导致图像虚化 带来的人体骨架部位的尺度变化； pyramid methods经常在使用在inference阶段对图像进行尺度改变，在DCNNs中学习特征pyramids还未被开发  本篇文章重点：  设计 PRMs(Pyramid Residual Module) 来捕捉 DCNN 中尺度的变化，PRMs会从 不同尺度的输入特征">
+<meta name="twitter:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-15/91471002.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/12/Learning-Feature-Pyramids-for-Human-Pose-Estimation/"/>
+
+
+
+
+
+  <title>Learning Feature Pyramids for Human Pose Estimation | 珍惜这一份幸运</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">珍惜这一份幸运</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/12/Learning-Feature-Pyramids-for-Human-Pose-Estimation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hongweiyi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ofool1jdy.bkt.clouddn.com/17-10-24/70886790.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="珍惜这一份幸运">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Learning Feature Pyramids for Human Pose Estimation</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T21:09:35+08:00">
+                2017-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/human-pose-estimation/" itemprop="url" rel="index">
+                    <span itemprop="name">human pose estimation</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>问题的难点：</p>
+<ol>
+<li>当摄像机视角变话或者视角发生严重缩短，导致图像虚化 带来的人体骨架部位的尺度变化；</li>
+<li>pyramid methods经常在使用在inference阶段对图像进行尺度改变，在DCNNs中学习特征pyramids还未被开发</li>
+</ol>
+<p>本篇文章重点：</p>
+<ol>
+<li>设计 <strong>PRMs(Pyramid Residual Module)</strong> 来捕捉 DCNN 中尺度的变化，PRMs会从 不同尺度的输入特征 学习不同的 卷积核；</li>
+<li>对于 multi－branch 网络，探索一个新的初始化参数的方法；</li>
+<li>残差会随着深度的增加，损失会急剧增大，本文也提到一个高效的方法解决这个问题</li>
+</ol>
+<h2 id="Frame-Work"><a href="#Frame-Work" class="headerlink" title="Frame Work"></a>Frame Work</h2><p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-15/91471002.jpg" alt="Framework"></p>
+<p>PRM 提起feature －－－》stack hourglass network 获得人体骨架关键点</p>
+<h3 id="Revisiting-Stacking-Hourglass-Network"><a href="#Revisiting-Stacking-Hourglass-Network" class="headerlink" title="Revisiting Stacking Hourglass Network"></a>Revisiting Stacking Hourglass Network</h3><p>Hourglass network 用于在 前向阶段 图片不同尺度的信息；bottom-up：subsampling 特征图，top-down:上采样特征图；在bottom－up 和 top－down两个阶段重复多次构成 “stacked hourglass“” 网络结构；  </p>
+<p>但是在原论文中，<strong>残差单元</strong>作为<strong>hourglass network的构建模块(积木)</strong>，只能捕捉一个scale下的可视化模式或者语义信息。本文使用的<strong>pyramid residual module</strong>作为 <strong>hourglass network的构建模块（积木）</strong>能够获取多尺度下的可视化模式或语义信息。</p>
+<h3 id="Pyramid-Residual-Modules-PRMs"><a href="#Pyramid-Residual-Modules-PRMs" class="headerlink" title="Pyramid Residual Modules(PRMs)"></a>Pyramid Residual Modules(PRMs)</h3><p>目标：学习DCNN不同层次的特征金字塔。<br><em>推荐阅读:resdual unit and indentity map by kaiming he</em></p>
+<p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-15/54392120.jpg" alt="framework"></p>
+<p>PRM显示地对于不同分辨率的输入特征学习不同的filters：</p>
+<ol>
+<li>x,W 表示输入和滤波器  <img src="http://ofool1jdy.bkt.clouddn.com/17-11-15/32256017.jpg" alt="formule1">  C 表示the number pyramid levels，W表示参数；</li>
+<li>产生金字塔的特征图：<br>其中 subsample ratio of Cth level of pyramid：<img src="http://ofool1jdy.bkt.clouddn.com/17-11-15/13550205.jpg" alt="formule2"></li>
+</ol>
+<h3 id="discussion"><a href="#discussion" class="headerlink" title="discussion"></a>discussion</h3><h4 id="PRM-for-general-cnns"><a href="#PRM-for-general-cnns" class="headerlink" title="PRM for general cnns"></a>PRM for general cnns</h4><h4 id="Variants-in-pyramid-structure"><a href="#Variants-in-pyramid-structure" class="headerlink" title="Variants in pyramid structure"></a>Variants in pyramid structure</h4><p>pyramid structure 可以有多个变种，除了使用max-pooling,convolution,upsampling来学习金字塔特征，还可以使用dilated卷积；</p>
+<h4 id="Weight-sharing"><a href="#Weight-sharing" class="headerlink" title="Weight sharing"></a>Weight sharing</h4><p>不同层的image pyramids 使用相同的滤波器权重，因为最后保证不同层级的特征图大小一致，所以使用的滤波器大小一致；</p>
+<h4 id="Complexity"><a href="#Complexity" class="headerlink" title="Complexity"></a>Complexity</h4><p>比使用residual unit只增加10%的计算量</p>
+<h3 id="Training-and-Inference"><a href="#Training-and-Inference" class="headerlink" title="Training and Inference"></a>Training and Inference</h3><ol>
+<li>ground-truth score map:<img src="http://ofool1jdy.bkt.clouddn.com/17-11-15/65027117.jpg" alt="gt"></li>
+<li>loss at the each of each stack:<img src="http://ofool1jdy.bkt.clouddn.com/17-11-15/95311625.jpg" alt="loss"></li>
+<li>get the predicted body joint location:<img src="http://ofool1jdy.bkt.clouddn.com/17-11-15/44357927.jpg" alt="pre"></li>
+</ol>
+<h4 id="Initialization-Multi-Branch-Networks"><a href="#Initialization-Multi-Branch-Networks" class="headerlink" title="Initialization Multi-Branch Networks"></a>Initialization Multi-Branch Networks</h4><h5 id="forward-propagation"><a href="#forward-propagation" class="headerlink" title="forward propagation"></a>forward propagation</h5><h5 id="backward-propagation"><a href="#backward-propagation" class="headerlink" title="backward propagation"></a>backward propagation</h5><h5 id="special-case"><a href="#special-case" class="headerlink" title="special case"></a>special case</h5><h5 id="general-case"><a href="#general-case" class="headerlink" title="general case"></a>general case</h5><h4 id="Output-Varience-Accumulation"><a href="#Output-Varience-Accumulation" class="headerlink" title="Output Varience Accumulation"></a>Output Varience Accumulation</h4><h3 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h3><h4 id="Implementation-details"><a href="#Implementation-details" class="headerlink" title="Implementation details"></a>Implementation details</h4><ol>
+<li>input image:256x256 </li>
+<li>test: 测试 lsp test set, 只使用图片中心作为body position,通过图像大小估算人体大小尺度</li>
+<li>train：使用 scaling,rotation,flipping,add color noise 数据增强</li>
+<li>使用 RMSprop优化 网络训练 在 4块titanx，mini-batch 16（4 foreach） 200 epoches.</li>
+<li>learning rate:7x0.0001， droped by 10 at 150th，170th epoches</li>
+<li>test 使用 图像6个尺度</li>
+</ol>
+<h4 id="result-on-mpii-and-lsp-dataset"><a href="#result-on-mpii-and-lsp-dataset" class="headerlink" title="result on mpii and lsp dataset"></a>result on mpii and lsp dataset</h4><h5 id="evaluation"><a href="#evaluation" class="headerlink" title="evaluation"></a>evaluation</h5><p>使用 PCK measure (Percentage Correct Keypoints) with threshold 50%</p>
+<h5 id="result"><a href="#result" class="headerlink" title="result"></a>result</h5><p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-15/8242726.jpg" alt="result"></p>
+<h4 id="Ablation-Study"><a href="#Ablation-Study" class="headerlink" title="Ablation Study"></a>Ablation Study</h4><p>对比实验，比较 scale of pyramids, weight initialization, controlling variance explosion 对于试验结果的好坏；<br><img src="http://ofool1jdy.bkt.clouddn.com/17-11-15/5482896.jpg" alt="ablation"></p>
+<h3 id="Conlusion"><a href="#Conlusion" class="headerlink" title="Conlusion"></a>Conlusion</h3><p>本篇文章的重点在于 设计<strong>PRMs模块</strong>学习图像不同尺度下的特征，同时对于 <strong>multi-branch</strong>还设计<strong>一种新的初始化参数机制</strong>.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ICCV-2017-SinglePersonPoseEstimation/" rel="tag"># ICCV_2017, SinglePersonPoseEstimation</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/12/2017_human_keypoint_detection/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://ofool1jdy.bkt.clouddn.com/17-10-24/70886790.jpg"
+                alt="hongweiyi" />
+            
+              <p class="site-author-name" itemprop="name">hongweiyi</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Frame-Work"><span class="nav-number">2.</span> <span class="nav-text">Frame Work</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Revisiting-Stacking-Hourglass-Network"><span class="nav-number">2.1.</span> <span class="nav-text">Revisiting Stacking Hourglass Network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pyramid-Residual-Modules-PRMs"><span class="nav-number">2.2.</span> <span class="nav-text">Pyramid Residual Modules(PRMs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#discussion"><span class="nav-number">2.3.</span> <span class="nav-text">discussion</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PRM-for-general-cnns"><span class="nav-number">2.3.1.</span> <span class="nav-text">PRM for general cnns</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Variants-in-pyramid-structure"><span class="nav-number">2.3.2.</span> <span class="nav-text">Variants in pyramid structure</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Weight-sharing"><span class="nav-number">2.3.3.</span> <span class="nav-text">Weight sharing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Complexity"><span class="nav-number">2.3.4.</span> <span class="nav-text">Complexity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-and-Inference"><span class="nav-number">2.4.</span> <span class="nav-text">Training and Inference</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Initialization-Multi-Branch-Networks"><span class="nav-number">2.4.1.</span> <span class="nav-text">Initialization Multi-Branch Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#forward-propagation"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">forward propagation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#backward-propagation"><span class="nav-number">2.4.1.2.</span> <span class="nav-text">backward propagation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#special-case"><span class="nav-number">2.4.1.3.</span> <span class="nav-text">special case</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#general-case"><span class="nav-number">2.4.1.4.</span> <span class="nav-text">general case</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Output-Varience-Accumulation"><span class="nav-number">2.4.2.</span> <span class="nav-text">Output Varience Accumulation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Experiments"><span class="nav-number">2.5.</span> <span class="nav-text">Experiments</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Implementation-details"><span class="nav-number">2.5.1.</span> <span class="nav-text">Implementation details</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#result-on-mpii-and-lsp-dataset"><span class="nav-number">2.5.2.</span> <span class="nav-text">result on mpii and lsp dataset</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#evaluation"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">evaluation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#result"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">result</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ablation-Study"><span class="nav-number">2.5.3.</span> <span class="nav-text">Ablation Study</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conlusion"><span class="nav-number">2.6.</span> <span class="nav-text">Conlusion</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hongweiyi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

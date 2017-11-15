@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MultiPersonPoseEstimation, ICCV_2017," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文发表在 iccv 2017会议上，由上海交通大学 hao-shu fang, shuqin xie 和腾讯ailab yu-wing tai共同合作发表，针对 two-step human pose estimation method作出改进，并在mpii 和 coco 测试集上得到非常优异的结果，高于cmu_pose分数0.01； Abstract对于多人姿态估计研究领域中，研究方法有两种，">
+<meta name="keywords" content="MultiPersonPoseEstimation, ICCV_2017">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RMPE: Reginonal Multi-Person Pose Estimation">
+<meta property="og:url" content="http://yoursite.com/2017/10/26/RMPE-Reginonal-Multi-Person-Pose-Estimation/index.html">
+<meta property="og:site_name" content="珍惜这一份幸运">
+<meta property="og:description" content="本文发表在 iccv 2017会议上，由上海交通大学 hao-shu fang, shuqin xie 和腾讯ailab yu-wing tai共同合作发表，针对 two-step human pose estimation method作出改进，并在mpii 和 coco 测试集上得到非常优异的结果，高于cmu_pose分数0.01； Abstract对于多人姿态估计研究领域中，研究方法有两种，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-10-27/73895100.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-10-27/16875084.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-10-27/40588797.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-10-27/67911950.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-10-27/78212864.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-10-27/10558344.jpg">
+<meta property="og:updated_time" content="2017-11-12T13:14:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RMPE: Reginonal Multi-Person Pose Estimation">
+<meta name="twitter:description" content="本文发表在 iccv 2017会议上，由上海交通大学 hao-shu fang, shuqin xie 和腾讯ailab yu-wing tai共同合作发表，针对 two-step human pose estimation method作出改进，并在mpii 和 coco 测试集上得到非常优异的结果，高于cmu_pose分数0.01； Abstract对于多人姿态估计研究领域中，研究方法有两种，">
+<meta name="twitter:image" content="http://ofool1jdy.bkt.clouddn.com/17-10-27/73895100.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/26/RMPE-Reginonal-Multi-Person-Pose-Estimation/"/>
+
+
+
+
+
+  <title>RMPE: Reginonal Multi-Person Pose Estimation | 珍惜这一份幸运</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">珍惜这一份幸运</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/26/RMPE-Reginonal-Multi-Person-Pose-Estimation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hongweiyi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ofool1jdy.bkt.clouddn.com/17-10-24/70886790.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="珍惜这一份幸运">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RMPE: Reginonal Multi-Person Pose Estimation</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-26T23:39:21+08:00">
+                2017-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/human-pose-estimation/" itemprop="url" rel="index">
+                    <span itemprop="name">human pose estimation</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文发表在 iccv 2017会议上，由上海交通大学 hao-shu fang, shuqin xie 和腾讯ailab yu-wing tai共同合作发表，针对 two-step human pose estimation method作出改进，并在mpii 和 coco 测试集上得到非常优异的结果，高于cmu_pose分数0.01；</p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>对于多人姿态估计研究领域中，研究方法有两种，一种是基于part-detection,另一种是two_step method，human_detection + single_person_pose_detection。其中在two_step method中，human_detection检测器的效果好坏对结果的影响很大。所以本文提出一种新的框架RMPE，应用于不准确的行人检测器，减少检测器检测行人误差带来的影响从而也能能得到更好的pose estimation结果。本文主要包括三个部分：</p>
+<ol>
+<li>Symmetric Spactial Transformer Network(SSTN): 对称空间变换网络</li>
+<li>Parametric Pose NoMaximum-Suppression(NMS): 带参数的非最大抑制</li>
+<li>Pose-Guided Proposals Generator(PGPG): 姿态导向的 候选框的提取</li>
+</ol>
+<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><h3 id="Single-Person-Pose-Estimation"><a href="#Single-Person-Pose-Estimation" class="headerlink" title="Single Person Pose Estimation"></a>Single Person Pose Estimation</h3><p>这部分单个行人检测器仅仅在人的位置被准确定位时，效果很好；其中方法主要分为：传统方法，例如树模型、图模型；基于深度学习方法：DeepPose, 还有其它基于cnn和dnn的方法；</p>
+<h3 id="Multi-Person-Pose-Estimation"><a href="#Multi-Person-Pose-Estimation" class="headerlink" title="Multi Person Pose Estimation"></a>Multi Person Pose Estimation</h3><h4 id="Part-based-Framework"><a href="#Part-based-Framework" class="headerlink" title="Part-based Framework"></a>Part-based Framework</h4><p>该部分研究方法主要研究<strong>检测行人的关键点部位，再通过将不同关键点聚集成不同人</strong>。主流方法有：deepcut，cmu<em>rtpose，</em>个人推崇先看最新得分最高的结果，目前我在使用cmu<em>rtpose做人体骨架关键点检测，在数据集上训练后得到结果，发现效果惊人的同时也发现还是存在很多问题的，对于这些问题值得进一步思考。</em></p>
+<h4 id="Two-step-Framework"><a href="#Two-step-Framework" class="headerlink" title="Two-step Framework"></a>Two-step Framework</h4><p>本文工作主要基于此。human detector + pose detector;<br>本文结合Faster-Rcnn＋基于cnn的方法SPPE的姿态估计比Insafutdinov使用的Faster-Rcnn+DeepCut在mpii数据集上测试的mAP51.0要高的多，为76.7。通过结合行人检测器和姿态估计算法的发展，two－step framework能够得到近一步的提升，本文也提出如何解决对于impeferct的检测器带来的问题从而最大化SPPE的效果。</p>
+<p><em>建议初学这可以把文中提到的论文简要阅读并总结，了解该问题的研究历史。</em></p>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/73895100.jpg" alt="architecture"></p>
+<p>输入human_detector检测的human proposals，输入空间转换网络（STN）,用于提取质量更高更有意义的human proposal（<strong>STN</strong>前辈提出的网络用于提取更加有效的区域），同时输入SPPE 和 Paraller SPPE，上部分用于预测human pose，下半部分用固定参数的SPPE用于训练，计算loss，保证训练时全局的稳定性，同时当出现检测区域检测人体姿态效果很差时，能够回传一个大的loss，告诉网络该proposal不适合做人体姿态估计；上部分SPPE的结果经过SDTN反变换为原图像空间，再经过一个带参数的nms得到最后的人体姿态估计结果。</p>
+<h3 id="Symmetric-STN-and-Parallel-SPPE"><a href="#Symmetric-STN-and-Parallel-SPPE" class="headerlink" title="Symmetric STN and Parallel SPPE"></a>Symmetric STN and Parallel SPPE</h3><p><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/16875084.jpg" alt="stn and sppe"></p>
+<h4 id="STN-and-SPPE"><a href="#STN-and-SPPE" class="headerlink" title="STN and SPPE"></a>STN and SPPE</h4><p>空间变化网络在自动选择感兴趣区域时有非常好的表现，所以本文使用空间变换网络用于提取高质量重要的人体检测提要框。<br>STN: 2D<br>SDTN: 得到的结果经过反变换为原图像空间</p>
+<p>在<strong>训练</strong>中,STN和SPPE一起训练。</p>
+<h4 id="Parallel-SPPE"><a href="#Parallel-SPPE" class="headerlink" title="Parallel SPPE"></a>Parallel SPPE</h4><p>为了更好的通过STN提取到有效的区域，增加Parallel SPPE直接对extracting human proposals进行测试，与真实的label进行比对计算loss，如果extracting human proposal并不是把物体包含在提要框中心，则会得到很差的pose estimation结果，从而得到非常大的loss。所以该网络的目的是用来回传与基于中心区域的groundtruth pose的loss，这样能够帮助STN关注到提取正确的区域，提高提取感兴趣的效果。该网络的参数固定，只用于training phae，向STN module 回传loss</p>
+<h3 id="Parametric-Pose-NMS"><a href="#Parametric-Pose-NMS" class="headerlink" title="Parametric Pose NMS"></a>Parametric Pose NMS</h3><p>基于数据驱动的参数NMS, 通过一定数据集训练得到不同部位的最大化抑制参数，而非手工设定，一旦学习到，就固定。</p>
+<h3 id="Pose-guided-Proposals-Generator"><a href="#Pose-guided-Proposals-Generator" class="headerlink" title="Pose-guided Proposals Generator"></a>Pose-guided Proposals Generator</h3><p>数据增强的方法。通过分析检测器的对于不同姿态检测结果与真实结果的误差分布，利用数据增强模拟检测器的误差，让后续的STN和SPPE适应检测器带来的误差，从而能够学习到更好的效果；<br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/40588797.jpg" alt="error distribution"></p>
+<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><h3 id="Ablaxtion-studies"><a href="#Ablaxtion-studies" class="headerlink" title="Ablaxtion studies"></a>Ablaxtion studies</h3><p><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/67911950.jpg" alt="ablaxtion"></p>
+<h3 id="test-result-on-MPII-and-COCO"><a href="#test-result-on-MPII-and-COCO" class="headerlink" title="test result on MPII and COCO"></a>test result on MPII and COCO</h3><p><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/78212864.jpg" alt="mpii"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/10558344.jpg" alt="coco"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MultiPersonPoseEstimation-ICCV-2017/" rel="tag"># MultiPersonPoseEstimation, ICCV_2017</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/24/MOT-Multi-Object-Tracking/" rel="next" title="MOT : Multi-Object Tracking">
+                <i class="fa fa-chevron-left"></i> MOT : Multi-Object Tracking
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/29/deep-learning-notes/" rel="prev" title="deep learning notes">
+                deep learning notes <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://ofool1jdy.bkt.clouddn.com/17-10-24/70886790.jpg"
+                alt="hongweiyi" />
+            
+              <p class="site-author-name" itemprop="name">hongweiyi</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Work"><span class="nav-number">2.</span> <span class="nav-text">Related Work</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Person-Pose-Estimation"><span class="nav-number">2.1.</span> <span class="nav-text">Single Person Pose Estimation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-Person-Pose-Estimation"><span class="nav-number">2.2.</span> <span class="nav-text">Multi Person Pose Estimation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Part-based-Framework"><span class="nav-number">2.2.1.</span> <span class="nav-text">Part-based Framework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Two-step-Framework"><span class="nav-number">2.2.2.</span> <span class="nav-text">Two-step Framework</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture"><span class="nav-number">3.</span> <span class="nav-text">Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Symmetric-STN-and-Parallel-SPPE"><span class="nav-number">3.1.</span> <span class="nav-text">Symmetric STN and Parallel SPPE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#STN-and-SPPE"><span class="nav-number">3.1.1.</span> <span class="nav-text">STN and SPPE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parallel-SPPE"><span class="nav-number">3.1.2.</span> <span class="nav-text">Parallel SPPE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parametric-Pose-NMS"><span class="nav-number">3.2.</span> <span class="nav-text">Parametric Pose NMS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pose-guided-Proposals-Generator"><span class="nav-number">3.3.</span> <span class="nav-text">Pose-guided Proposals Generator</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Experiments"><span class="nav-number">4.</span> <span class="nav-text">Experiments</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ablaxtion-studies"><span class="nav-number">4.1.</span> <span class="nav-text">Ablaxtion studies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test-result-on-MPII-and-COCO"><span class="nav-number">4.2.</span> <span class="nav-text">test result on MPII and COCO</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hongweiyi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
