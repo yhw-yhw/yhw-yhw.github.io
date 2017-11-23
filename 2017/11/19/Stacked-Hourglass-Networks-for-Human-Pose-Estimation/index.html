@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="survey,SinglePersonPoseEstimation,MultiPersonPoseEstimation," />
+  <meta name="keywords" content="SinglePersonPoseEstimation,baseModel," />
 
 
 
@@ -79,29 +79,26 @@
 
 
 
-<meta name="description" content="Multi-person keypoint detection2017 COCO keypoint detectionface++ mask-rcnn to detect person single-person skeleton model based on Resnet with U-shape side branch to integrate high resolution informat">
-<meta name="keywords" content="survey,SinglePersonPoseEstimation,MultiPersonPoseEstimation">
+<meta name="description" content="Abstract本文主要设计一种新颖的网络结构，在不同尺度上获取特征，并整合特征获得更好的骨架信息。”stacked hourglass”网络结构由 bottom-up 和 top-down的两种结构，同时增加网络训练的中间层监督。本文实验在FLIC和MPII数据集上训练和测试，获得当时最好结果。  Introduction目标：输入图片，得到图片中人的骨架关键点。 贡献：设计一个网络能够获取并整">
+<meta name="keywords" content="SinglePersonPoseEstimation,baseModel">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2017 Human Keypoint Detection Survey">
-<meta property="og:url" content="http://yoursite.com/2017/11/12/2017_human_keypoint_detection/index.html">
+<meta property="og:title" content="Stacked Hourglass Networks for Human Pose Estimation">
+<meta property="og:url" content="http://yoursite.com/2017/11/19/Stacked-Hourglass-Networks-for-Human-Pose-Estimation/index.html">
 <meta property="og:site_name" content="珍惜这一份幸运">
-<meta property="og:description" content="Multi-person keypoint detection2017 COCO keypoint detectionface++ mask-rcnn to detect person single-person skeleton model based on Resnet with U-shape side branch to integrate high resolution informat">
+<meta property="og:description" content="Abstract本文主要设计一种新颖的网络结构，在不同尺度上获取特征，并整合特征获得更好的骨架信息。”stacked hourglass”网络结构由 bottom-up 和 top-down的两种结构，同时增加网络训练的中间层监督。本文实验在FLIC和MPII数据集上训练和测试，获得当时最好结果。  Introduction目标：输入图片，得到图片中人的骨架关键点。 贡献：设计一个网络能够获取并整">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-12/31573284.jpg">
-<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-12/850111.jpg">
-<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-12/87968616.jpg">
-<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-12/54374015.jpg">
-<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-12/28252337.jpg">
-<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-12/36982708.jpg">
-<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-12/8635652.jpg">
-<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-12/24897758.jpg">
-<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-12/66645645.jpg">
-<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-12/28730466.jpg">
-<meta property="og:updated_time" content="2017-11-15T03:12:45.000Z">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-19/19037537.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-19/7205523.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-19/8661993.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-19/45423972.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-19/34723432.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-19/98507039.jpg">
+<meta property="og:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-19/50238595.jpg">
+<meta property="og:updated_time" content="2017-11-23T08:09:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2017 Human Keypoint Detection Survey">
-<meta name="twitter:description" content="Multi-person keypoint detection2017 COCO keypoint detectionface++ mask-rcnn to detect person single-person skeleton model based on Resnet with U-shape side branch to integrate high resolution informat">
-<meta name="twitter:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-12/31573284.jpg">
+<meta name="twitter:title" content="Stacked Hourglass Networks for Human Pose Estimation">
+<meta name="twitter:description" content="Abstract本文主要设计一种新颖的网络结构，在不同尺度上获取特征，并整合特征获得更好的骨架信息。”stacked hourglass”网络结构由 bottom-up 和 top-down的两种结构，同时增加网络训练的中间层监督。本文实验在FLIC和MPII数据集上训练和测试，获得当时最好结果。  Introduction目标：输入图片，得到图片中人的骨架关键点。 贡献：设计一个网络能够获取并整">
+<meta name="twitter:image" content="http://ofool1jdy.bkt.clouddn.com/17-11-19/19037537.jpg">
 
 
 
@@ -131,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/11/12/2017_human_keypoint_detection/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/11/19/Stacked-Hourglass-Networks-for-Human-Pose-Estimation/"/>
 
 
 
 
 
-  <title>2017 Human Keypoint Detection Survey | 珍惜这一份幸运</title>
+  <title>Stacked Hourglass Networks for Human Pose Estimation | 珍惜这一份幸运</title>
   
 
 
@@ -274,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/12/2017_human_keypoint_detection/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/19/Stacked-Hourglass-Networks-for-Human-Pose-Estimation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hongweiyi">
@@ -291,7 +288,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2017 Human Keypoint Detection Survey</h1>
+          <h1 class="post-title" itemprop="name headline">Stacked Hourglass Networks for Human Pose Estimation</h1>
         
 
         <div class="post-meta">
@@ -303,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T21:09:30+08:00">
-                2017-11-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-19T21:33:11+08:00">
+                2017-11-19
               </time>
             
 
@@ -363,67 +360,63 @@
       
 
       
-        <h2 id="Multi-person-keypoint-detection"><a href="#Multi-person-keypoint-detection" class="headerlink" title="Multi-person keypoint detection"></a>Multi-person keypoint detection</h2><h3 id="2017-COCO-keypoint-detection"><a href="#2017-COCO-keypoint-detection" class="headerlink" title="2017 COCO keypoint detection"></a>2017 COCO keypoint detection</h3><h4 id="face"><a href="#face" class="headerlink" title="face++"></a>face++</h4><ol>
-<li>mask-rcnn to detect person</li>
-<li>single-person skeleton model based on Resnet with U-shape side branch to integrate high resolution information from the earlier layers and semantic information from the deeper layers.</li>
-<li>only using the provided training set</li>
+        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>本文主要设计一种新颖的网络结构，在不同尺度上获取特征，并整合特征获得更好的骨架信息。”stacked hourglass”网络结构由 bottom-up 和 top-down的两种结构，同时增加网络训练的中间层监督。本文实验在FLIC和MPII数据集上训练和测试，获得当时最好结果。</p>
+<p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-19/19037537.jpg" alt="abstract"></p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>目标</strong>：输入图片，得到图片中人的骨架关键点。</p>
+<p><strong>贡献</strong>：设计一个网络能够获取并整合不同尺度下的图片信息特征，能够获取像 人的头部，肘部这样局部的特征，同时也能够获取整个人的骨架整体的特征。</p>
+<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><ol>
+<li>DeepPose: cmu团队Tompson的算法，输入不同尺度的图片并行处理，得到最好的检测见过；</li>
+<li>本文设计思路起源于fully convolution networks，conv-deconv, encoder-decoder架构；</li>
 </ol>
-<p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-12/31573284.jpg" alt="face++"></p>
-<h4 id="BEIHANGU"><a href="#BEIHANGU" class="headerlink" title="BEIHANGU"></a>BEIHANGU</h4><ol>
-<li>top-down method</li>
-<li>first stage: mask-rcnn to detect person </li>
-<li>second stage: using sppe.</li>
-<li>rm false annotated data</li>
-<li>use both detection and keypoint score for instance re-scoring and perform box-nms and oks-nms based on it.</li>
-<li>both are single model, no model ensembles</li>
-<li><strong>using aic dataset to improve 1.5 map</strong></li>
-</ol>
-<p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-12/850111.jpg" alt="BEIHANGU"></p>
-<h4 id="BANGBANGREN"><a href="#BANGBANGREN" class="headerlink" title="BANGBANGREN"></a>BANGBANGREN</h4><ol>
-<li>two-stage system</li>
-<li>first stage: faster rcnn with deformable version of resnet101 on MS-COCO trainval2017 <em>Multi-scale testing and soft-NMS</em></li>
-<li>second stage: single person pose estimation, train a resnet-101 based model to predict heatmap and offset fields of keypoints for the person in the detected bounding box</li>
-<li><strong>The performance is boosted by OKS-based NMS in post-processing</strong></li>
-<li>single person pose model trained <strong>COCO MS-trainval2017 and extra dataset</strong>; and using an <strong>ensemble of seven models</strong> to obtain an average precision of 0.728 on the test-dev set and 0.706 on the test-challenge set.</li>
-</ol>
-<p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-12/87968616.jpg" alt="bangbangren"></p>
-<h4 id="G-RMI"><a href="#G-RMI" class="headerlink" title="G-RMI"></a>G-RMI</h4><p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-12/54374015.jpg" alt="google"></p>
+<h2 id="Network-Architecture"><a href="#Network-Architecture" class="headerlink" title="Network Architecture"></a>Network Architecture</h2><h3 id="Hourglass-Design"><a href="#Hourglass-Design" class="headerlink" title="Hourglass Design"></a>Hourglass Design</h3><p>动机：需要获取图像不同尺度下的特征，局部的特征用来确定头部，肘部，腰部等关键点，同时也需要获取全局的特征来整合不同部位为一个人的整体；</p>
+<p>优点：能够很好地获得不同尺度下的特征同时也很有效地整合；</p>
+<p>结构：convolution and max pooling 层将图像feature降到一个非常低的维度；在每个最大池化层之后，开始分支，使用在最大池化层之前相同维度的卷积；在达到最低维时，开始上采样和结合不同尺度下的特征，使用最近邻上采样，再与相同维度的特征进行element相加；<em>在达到网络的输出部分，还有两轮1x1卷积，最终产生网络的输出。</em></p>
+<p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-19/7205523.jpg" alt="architecture"></p>
+<h3 id="Layer-Implementation"><a href="#Layer-Implementation" class="headerlink" title="Layer Implementation"></a>Layer Implementation</h3><p>(<em>作者在实验室中，参考对比使用，residual learning modules and “inception”-based designs</em>)</p>
+<p><strong>在保持整个hourglass形状不变，在每一层的实现上可以有很大的灵活性</strong></p>
+<p>作者最后选择使用residual modules, filters 不超过 3x3，这样能够控制每一层参数内存的占用；<img src="http://ofool1jdy.bkt.clouddn.com/17-11-19/8661993.jpg" alt="block"></p>
 <ol>
-<li>Associative Embedding:<br>End-to-End Learning for Joint Detection and Grouping</li>
-<li>Towards Accurate Multi-person Pose Estimation in the Wild</li>
+<li>256x256  与 7x7 ，步长为2的卷积层卷机，再加上一个 residual module 和max_pooling层，缩小至 64x64</li>
+<li>在接下两个 residual modules</li>
+<li>最后整个 hourglass 的所有 residual modules 输出都是 256的特征（<strong>需要好好了解resnet 结构</strong>）</li>
 </ol>
-<h4 id="FAIR"><a href="#FAIR" class="headerlink" title="FAIR"></a>FAIR</h4><ol>
-<li>mask-rccn</li>
-<li>feature pyramid networks</li>
-<li>resnext</li>
-<li>semi-supervised learning paradigm</li>
-</ol>
-<p>paper:</p>
+<h3 id="Stacked-Hourglass-with-Intermediate-Supervision"><a href="#Stacked-Hourglass-with-Intermediate-Supervision" class="headerlink" title="Stacked Hourglass with Intermediate Supervision"></a>Stacked Hourglass with Intermediate Supervision</h3><p>蓝色为网络输出的heatmaps, 计算与ground truth的loss；之后与1x1的卷积层进行卷积，得到与中间层特征相同的维度，这些与之前的hourgalss 得到的特征相加在一起输入下一个hourglass；</p>
+<p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-19/45423972.jpg" alt="hourglass module"></p>
+<p><strong>注意：</strong></p>
 <ol>
-<li>Aggregated Residual Transformations for Deep Neural Networks</li>
-<li>Feature Pyramid Networks for Object Detection</li>
-<li><img src="http://ofool1jdy.bkt.clouddn.com/17-11-12/28252337.jpg" alt="fair"></li>
+<li>网络最终使用8个 hourglass modules</li>
+<li>每一个 hourglass modules 之间的参数是不共享的</li>
+<li>每一个 hourglass modules 使用的 ground truth是一致的</li>
 </ol>
-<h4 id="SJTU"><a href="#SJTU" class="headerlink" title="SJTU"></a>SJTU</h4><ol>
-<li>get 69.7 map on test_dev dataset by <strong>fusing</strong> three model<br><img src="http://ofool1jdy.bkt.clouddn.com/17-11-12/36982708.jpg" alt="sjtu"></li>
-</ol>
-<h3 id="2016-COCO-keypoint-detection"><a href="#2016-COCO-keypoint-detection" class="headerlink" title="2016 COCO keypoint detection"></a>2016 COCO keypoint detection</h3><h4 id="CMU-rtpose"><a href="#CMU-rtpose" class="headerlink" title="CMU_rtpose"></a>CMU_rtpose</h4><ol>
-<li>bottom_up method</li>
-<li>first, detect all keypoints and all limb vectors</li>
-<li>second, accumulate different keypoints to different person</li>
-</ol>
-<p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-12/8635652.jpg" alt="cmu"></p>
-<h3 id="2017-MPII"><a href="#2017-MPII" class="headerlink" title="2017 MPII"></a>2017 MPII</h3><p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-12/24897758.jpg" alt="mpii1"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-11-12/66645645.jpg" alt="mpii2"></p>
-<h2 id="Single-person-keypoint-detection"><a href="#Single-person-keypoint-detection" class="headerlink" title="Single-person keypoint detection"></a>Single-person keypoint detection</h2><h3 id="2017-MPII-1"><a href="#2017-MPII-1" class="headerlink" title="2017 MPII"></a>2017 MPII</h3><p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-12/28730466.jpg" alt="mpii3"></p>
-<p><strong>sensetime has amazing job on single person pose estimation task;</strong></p>
-<ol>
-<li>Multi-Context Attention for Human Pose Estimation by chu xiao</li>
-<li><strong>Yang_Learning_Feature_Pyramids_ICCV_2017_paper</strong> by wei yang</li>
-</ol>
-<p>**Based on fundermental work</p>
-<ol>
-<li>Stacked Hourglass Networks for Human Pose Estimation</li>
-</ol>
+<h2 id="Training-Details"><a href="#Training-Details" class="headerlink" title="Training Details"></a>Training Details</h2><p>数据集：</p>
+<ul>
+<li>flic: 5003(3987 训练, 1016 测试)图片;</li>
+<li>mpii:25k图片, 40k 标注行人（28k训练，11k测试）</li>
+</ul>
+<p>输入图片大小：256x256</p>
+<p>数据增强：</p>
+<ul>
+<li>旋转： ＋－30度</li>
+<li>尺度变化：.75-1.25</li>
+<li>没有增加平移：因为检测关键点，对于图像中心点和图像本身的尺度有关，所以没有进行平移</li>
+</ul>
+<p>训练环境：3天，在12g的titanx上；</p>
+<p>测试：单张图片75ms；</p>
+<h2 id="results"><a href="#results" class="headerlink" title="results"></a>results</h2><p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-19/34723432.jpg" alt="result1"></p>
+<h2 id="Future-Analysis"><a href="#Future-Analysis" class="headerlink" title="Future Analysis"></a>Future Analysis</h2><h3 id="multiple-people"><a href="#multiple-people" class="headerlink" title="multiple people"></a>multiple people</h3><p>对于一张图片中有多个人，如果确定检测哪一个人的骨架关键点，只需要给定目标中心和目标尺度就能检测对应的人；</p>
+<p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-19/98507039.jpg" alt="multipeople"></p>
+<h3 id="occlusion"><a href="#occlusion" class="headerlink" title="occlusion"></a>occlusion</h3><p>遮挡分为两种：</p>
+<ul>
+<li>关键点不可见，但是可以通过上下文信息，很明显的判断关键点的位置</li>
+<li>关键点不可见，但是没有多余信息获得关键点的位置</li>
+</ul>
+<p>本实验并没有使用不可见点进行训练，但是对比实验，测试所有可见点和所有可见点与不可见点的结果对比：</p>
+<p>同时还对比实验 使用两种 threshold 方法获得检测结果的准确性：</p>
+<p><img src="http://ofool1jdy.bkt.clouddn.com/17-11-19/50238595.jpg" alt="vis vs invis"></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><ul>
+<li>本网络结构能够非常有效的获得骨架关键点的预测</li>
+<li>中间层的监督对于网络的训练是很重要的</li>
+</ul>
 
       
     </div>
@@ -441,11 +434,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/survey/" rel="tag"># survey</a>
-          
             <a href="/tags/SinglePersonPoseEstimation/" rel="tag"># SinglePersonPoseEstimation</a>
           
-            <a href="/tags/MultiPersonPoseEstimation/" rel="tag"># MultiPersonPoseEstimation</a>
+            <a href="/tags/baseModel/" rel="tag"># baseModel</a>
           
         </div>
       
@@ -458,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/12/aic_test_log/" rel="next" title="AIC_test">
-                <i class="fa fa-chevron-left"></i> AIC_test
+              <a href="/2017/11/12/Learning-Feature-Pyramids-for-Human-Pose-Estimation/" rel="next" title="Learning Feature Pyramids for Human Pose Estimation">
+                <i class="fa fa-chevron-left"></i> Learning Feature Pyramids for Human Pose Estimation
               </a>
             
           </div>
@@ -468,8 +459,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/11/12/Learning-Feature-Pyramids-for-Human-Pose-Estimation/" rel="prev" title="Learning Feature Pyramids for Human Pose Estimation">
-                Learning Feature Pyramids for Human Pose Estimation <i class="fa fa-chevron-right"></i>
+              <a href="/2017/11/22/Torch-Pyranet-test-for-AIChallenger/" rel="prev" title="Torch-Pyranet_test_for_AIChallenger.md">
+                Torch-Pyranet_test_for_AIChallenger.md <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -608,7 +599,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-person-keypoint-detection"><span class="nav-number">1.</span> <span class="nav-text">Multi-person keypoint detection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-COCO-keypoint-detection"><span class="nav-number">1.1.</span> <span class="nav-text">2017 COCO keypoint detection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#face"><span class="nav-number">1.1.1.</span> <span class="nav-text">face++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BEIHANGU"><span class="nav-number">1.1.2.</span> <span class="nav-text">BEIHANGU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BANGBANGREN"><span class="nav-number">1.1.3.</span> <span class="nav-text">BANGBANGREN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G-RMI"><span class="nav-number">1.1.4.</span> <span class="nav-text">G-RMI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FAIR"><span class="nav-number">1.1.5.</span> <span class="nav-text">FAIR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SJTU"><span class="nav-number">1.1.6.</span> <span class="nav-text">SJTU</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2016-COCO-keypoint-detection"><span class="nav-number">1.2.</span> <span class="nav-text">2016 COCO keypoint detection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CMU-rtpose"><span class="nav-number">1.2.1.</span> <span class="nav-text">CMU_rtpose</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-MPII"><span class="nav-number">1.3.</span> <span class="nav-text">2017 MPII</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Single-person-keypoint-detection"><span class="nav-number">2.</span> <span class="nav-text">Single-person keypoint detection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-MPII-1"><span class="nav-number">2.1.</span> <span class="nav-text">2017 MPII</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Work"><span class="nav-number">3.</span> <span class="nav-text">Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Network-Architecture"><span class="nav-number">4.</span> <span class="nav-text">Network Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hourglass-Design"><span class="nav-number">4.1.</span> <span class="nav-text">Hourglass Design</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layer-Implementation"><span class="nav-number">4.2.</span> <span class="nav-text">Layer Implementation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stacked-Hourglass-with-Intermediate-Supervision"><span class="nav-number">4.3.</span> <span class="nav-text">Stacked Hourglass with Intermediate Supervision</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Training-Details"><span class="nav-number">5.</span> <span class="nav-text">Training Details</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#results"><span class="nav-number">6.</span> <span class="nav-text">results</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Future-Analysis"><span class="nav-number">7.</span> <span class="nav-text">Future Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#multiple-people"><span class="nav-number">7.1.</span> <span class="nav-text">multiple people</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#occlusion"><span class="nav-number">7.2.</span> <span class="nav-text">occlusion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">8.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
             
 
           </div>
