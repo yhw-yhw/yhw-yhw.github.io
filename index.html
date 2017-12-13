@@ -259,6 +259,311 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/12/Feature-Pyramid-Network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hongweiyi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ofool1jdy.bkt.clouddn.com/17-10-24/70886790.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="珍惜这一份幸运">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/12/Feature-Pyramid-Network/" itemprop="url">Feature Pyramid Network</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-12T09:57:11+08:00">
+                2017-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Multi-scale-Object-Detection/" itemprop="url" rel="index">
+                    <span itemprop="name">Multi-scale Object Detection</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>本文根据卷积神经网络内在固有提取多尺度的特征特性，提出应用金字塔层级结构，构造卷积神经网络特征金字塔，同时控制非常小的额外时间开销。自顶向下的结构加上侧边连接用于组合不同尺度下的高层语义特征，也就是本文提出的 Feature Pyramid Network(FPN)。该算法在gpu上测试速度为6fps，在速度和准确性上都有非常好的表现。</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><img src="http://ofool1jdy.bkt.clouddn.com/17-12-12/24764803.jpg" alt="introduction"></p>
+<ol>
+<li>特征金字塔之前由图像金字塔提取手工特征得到，预测时需要使用每一层的特征</li>
+<li>最近的检测系统使用ConvNets，对于尺度不变性表现更加鲁棒，在预测时只需要使用最高层特征</li>
+<li>2中使用的结构对于较小的目标检测效果不是特别好，所以在预测时，使用不同卷积层的特征进行预测</li>
+<li>3中的结构为了避免使用底层特征，ssd放弃使用之前计算的卷积层，重新添加新的卷积层，这样失去对高分辨率的特征层的重用。同时为了平衡不同层级的特征之间语义信息的差别，我们添加top-down和横跨链接</li>
+</ol>
+<p>作者提出的 FPN 能够进行end-to-end的训练，能够有效提升检测和分割的准确性。</p>
+<h2 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h2><p><img src="http://ofool1jdy.bkt.clouddn.com/17-12-12/59953892.jpg" alt="related work"></p>
+<p>top:属于金字塔形的结构，在进行预测时还需要使用不同层级的特征，提高对不同尺度的目标识别准确性。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/12/12/Feature-Pyramid-Network/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/30/Multi-scale-Object-Detection-Survey-Until-201712/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hongweiyi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ofool1jdy.bkt.clouddn.com/17-10-24/70886790.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="珍惜这一份幸运">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/30/Multi-scale-Object-Detection-Survey-Until-201712/" itemprop="url">Multi-scale Object Detection Survey Until 201712</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T09:03:53+08:00">
+                2017-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Multi-scale-Object-Detection/" itemprop="url" rel="index">
+                    <span itemprop="name">Multi-scale Object Detection</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="ABSTRACT"><a href="#ABSTRACT" class="headerlink" title="ABSTRACT"></a>ABSTRACT</h2><p>mask rcnn, faster rcnn, fast rcnn, rcnn, (lc) (resnet, resnext)(3) -</p>
+<p>ssd, yolo(zy)</p>
+<p>local loss(4) ( lighted-head )</p>
+<p>feature pyramid network</p>
+<p>最终： faster－rcnn， resnext，fpn</p>
+<p>数据集： voc07，12， coco(), 鸟类检测</p>
+<p>评测：</p>
+<p>论文算法框架，github 源代码，结论分析；</p>
+<h3 id="ONE-STAGE-WAY"><a href="#ONE-STAGE-WAY" class="headerlink" title="ONE STAGE WAY"></a>ONE STAGE WAY</h3><h3 id="TWO-STAGE-WAY"><a href="#TWO-STAGE-WAY" class="headerlink" title="TWO STAGE WAY"></a>TWO STAGE WAY</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/23/Multi-Context-Attention-for-Human-Pose-Estimation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1558,6 +1863,28 @@
 <td>0.28</td>
 <td>边角处对于 脚踝 的检测 出现误检测，会出现在 cornor处</td>
 </tr>
+<tr>
+<td>1201</td>
+<td>60w trained on train dataset</td>
+<td>0.05</td>
+<td>0.1</td>
+<td>8-0.55-3</td>
+<td>add_connection <em> conda </em> condb add_faster-rcnn_refinement</td>
+<td>1</td>
+<td>0.328</td>
+<td>增加 bbox 聚合零散的 检测目标；</td>
+</tr>
+<tr>
+<td>1201</td>
+<td>60w trained on train＋val dataset</td>
+<td>0.05</td>
+<td>0.1</td>
+<td>8-0.55-4</td>
+<td>add_connection <em> conda </em> condb</td>
+<td>1</td>
+<td><strong>0.351</strong></td>
+<td>在 train+val 数据集上训练，数据提升达到 0.2 个百分点</td>
+</tr>
 </tbody>
 </table>
 <h3 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h3><h4 id="0-05-0-1-8-no-1"><a href="#0-05-0-1-8-no-1" class="headerlink" title="0.05, 0.1, 8, no, 1"></a>0.05, 0.1, 8, no, 1</h4><ol>
@@ -1939,326 +2266,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/26/RMPE-Reginonal-Multi-Person-Pose-Estimation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hongweiyi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://ofool1jdy.bkt.clouddn.com/17-10-24/70886790.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="珍惜这一份幸运">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/26/RMPE-Reginonal-Multi-Person-Pose-Estimation/" itemprop="url">RMPE: Reginonal Multi-Person Pose Estimation</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-26T23:39:21+08:00">
-                2017-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/human-pose-estimation/" itemprop="url" rel="index">
-                    <span itemprop="name">human pose estimation</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本文发表在 iccv 2017会议上，由上海交通大学 hao-shu fang, shuqin xie 和腾讯ailab yu-wing tai共同合作发表，针对 two-step human pose estimation method作出改进，并在mpii 和 coco 测试集上得到非常优异的结果，高于cmu_pose分数0.01；</p>
-<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>对于多人姿态估计研究领域中，研究方法有两种，一种是基于part-detection,另一种是two_step method，human_detection + single_person_pose_detection。其中在two_step method中，human_detection检测器的效果好坏对结果的影响很大。所以本文提出一种新的框架RMPE，应用于不准确的行人检测器，减少检测器检测行人误差带来的影响从而也能能得到更好的pose estimation结果。本文主要包括三个部分：</p>
-<ol>
-<li>Symmetric Spactial Transformer Network(SSTN): 对称空间变换网络</li>
-<li>Parametric Pose NoMaximum-Suppression(NMS): 带参数的非最大抑制</li>
-<li>Pose-Guided Proposals Generator(PGPG): 姿态导向的 候选框的提取</li>
-</ol>
-<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><h3 id="Single-Person-Pose-Estimation"><a href="#Single-Person-Pose-Estimation" class="headerlink" title="Single Person Pose Estimation"></a>Single Person Pose Estimation</h3><p>这部分单个行人检测器仅仅在人的位置被准确定位时，效果很好；其中方法主要分为：传统方法，例如树模型、图模型；基于深度学习方法：DeepPose, 还有其它基于cnn和dnn的方法；</p>
-<h3 id="Multi-Person-Pose-Estimation"><a href="#Multi-Person-Pose-Estimation" class="headerlink" title="Multi Person Pose Estimation"></a>Multi Person Pose Estimation</h3><h4 id="Part-based-Framework"><a href="#Part-based-Framework" class="headerlink" title="Part-based Framework"></a>Part-based Framework</h4><p>该部分研究方法主要研究<strong>检测行人的关键点部位，再通过将不同关键点聚集成不同人</strong>。主流方法有：deepcut，cmu<em>rtpose，</em>个人推崇先看最新得分最高的结果，目前我在使用cmu<em>rtpose做人体骨架关键点检测，在数据集上训练后得到结果，发现效果惊人的同时也发现还是存在很多问题的，对于这些问题值得进一步思考。</em></p>
-<h4 id="Two-step-Framework"><a href="#Two-step-Framework" class="headerlink" title="Two-step Framework"></a>Two-step Framework</h4><p>本文工作主要基于此。human detector + pose detector;<br>本文结合Faster-Rcnn＋基于cnn的方法SPPE的姿态估计比Insafutdinov使用的Faster-Rcnn+DeepCut在mpii数据集上测试的mAP51.0要高的多，为76.7。通过结合行人检测器和姿态估计算法的发展，two－step framework能够得到近一步的提升，本文也提出如何解决对于impeferct的检测器带来的问题从而最大化SPPE的效果。</p>
-<p><em>建议初学这可以把文中提到的论文简要阅读并总结，了解该问题的研究历史。</em></p>
-<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/73895100.jpg" alt="architecture"></p>
-<p>输入human_detector检测的human proposals，输入空间转换网络（STN）,用于提取质量更高更有意义的human proposal（<strong>STN</strong>前辈提出的网络用于提取更加有效的区域），同时输入SPPE 和 Paraller SPPE，上部分用于预测human pose，下半部分用固定参数的SPPE用于训练，计算loss，保证训练时全局的稳定性，同时当出现检测区域检测人体姿态效果很差时，能够回传一个大的loss，告诉网络该proposal不适合做人体姿态估计；上部分SPPE的结果经过SDTN反变换为原图像空间，再经过一个带参数的nms得到最后的人体姿态估计结果。</p>
-<h3 id="Symmetric-STN-and-Parallel-SPPE"><a href="#Symmetric-STN-and-Parallel-SPPE" class="headerlink" title="Symmetric STN and Parallel SPPE"></a>Symmetric STN and Parallel SPPE</h3><p><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/16875084.jpg" alt="stn and sppe"></p>
-<h4 id="STN-and-SPPE"><a href="#STN-and-SPPE" class="headerlink" title="STN and SPPE"></a>STN and SPPE</h4><p>空间变化网络在自动选择感兴趣区域时有非常好的表现，所以本文使用空间变换网络用于提取高质量重要的人体检测提要框。<br>STN: 2D<br>SDTN: 得到的结果经过反变换为原图像空间</p>
-<p>在<strong>训练</strong>中,STN和SPPE一起训练。</p>
-<h4 id="Parallel-SPPE"><a href="#Parallel-SPPE" class="headerlink" title="Parallel SPPE"></a>Parallel SPPE</h4><p>为了更好的通过STN提取到有效的区域，增加Parallel SPPE直接对extracting human proposals进行测试，与真实的label进行比对计算loss，如果extracting human proposal并不是把物体包含在提要框中心，则会得到很差的pose estimation结果，从而得到非常大的loss。所以该网络的目的是用来回传与基于中心区域的groundtruth pose的loss，这样能够帮助STN关注到提取正确的区域，提高提取感兴趣的效果。该网络的参数固定，只用于training phae，向STN module 回传loss</p>
-<h3 id="Parametric-Pose-NMS"><a href="#Parametric-Pose-NMS" class="headerlink" title="Parametric Pose NMS"></a>Parametric Pose NMS</h3><p>基于数据驱动的参数NMS, 通过一定数据集训练得到不同部位的最大化抑制参数，而非手工设定，一旦学习到，就固定。</p>
-<h3 id="Pose-guided-Proposals-Generator"><a href="#Pose-guided-Proposals-Generator" class="headerlink" title="Pose-guided Proposals Generator"></a>Pose-guided Proposals Generator</h3><p>数据增强的方法。通过分析检测器的对于不同姿态检测结果与真实结果的误差分布，利用数据增强模拟检测器的误差，让后续的STN和SPPE适应检测器带来的误差，从而能够学习到更好的效果；<br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/40588797.jpg" alt="error distribution"></p>
-<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><h3 id="Ablaxtion-studies"><a href="#Ablaxtion-studies" class="headerlink" title="Ablaxtion studies"></a>Ablaxtion studies</h3><p><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/67911950.jpg" alt="ablaxtion"></p>
-<h3 id="test-result-on-MPII-and-COCO"><a href="#test-result-on-MPII-and-COCO" class="headerlink" title="test result on MPII and COCO"></a>test result on MPII and COCO</h3><p><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/78212864.jpg" alt="mpii"><br><img src="http://ofool1jdy.bkt.clouddn.com/17-10-27/10558344.jpg" alt="coco"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/24/MOT-Multi-Object-Tracking/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hongweiyi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://ofool1jdy.bkt.clouddn.com/17-10-24/70886790.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="珍惜这一份幸运">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/24/MOT-Multi-Object-Tracking/" itemprop="url">MOT : Multi-Object Tracking</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-24T20:44:26+08:00">
-                2017-10-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MOT/" itemprop="url" rel="index">
-                    <span itemprop="name">MOT</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h2><p><strong>寻找各项比赛，需要考虑fps，accuracy，使用什么样的方法（pdf，code）,各项比赛的evaluation</strong><br><strong>寻找有效的dataset，跟踪目标主要是：车，人脸，人，目标是能够达到在跟踪7～10人能够达到30fps；</strong>  </p>
-<p><em>为什么深度学习对于跟踪目标不好：跟踪10个苹果，而在现实场景中，跟踪物 人和车的相似度经常很相似</em></p>
-<h2 id="mot-challenge（2016）"><a href="#mot-challenge（2016）" class="headerlink" title="mot challenge（2016）"></a>mot challenge（2016）</h2><h3 id="dataset"><a href="#dataset" class="headerlink" title="dataset"></a>dataset</h3><h4 id="2015-年数据集的缺陷："><a href="#2015-年数据集的缺陷：" class="headerlink" title="2015 年数据集的缺陷："></a>2015 年数据集的缺陷：</h4><ul>
-<li>标注协议不一致因为有些标注是直接从其它已经标注好的数据集中选择出来的；</li>
-<li>人群密度对于 训练集和测试集没有平衡</li>
-<li>有一些数据集过于简单（PETS09-S2L1），方法容易在这上 overfitting，所以这是不合理的训练集    </li>
-<li>给定的检测方法在数据集上表现不够</li>
-</ul>
-<h4 id="相比于2015-年数据集的优势："><a href="#相比于2015-年数据集的优势：" class="headerlink" title="相比于2015 年数据集的优势："></a>相比于2015 年数据集的优势：</h4><ul>
-<li>给定14个数据集序列，更加的密集，从不同视角，运动相机，不同天气条件</li>
-<li>另外这些标注都被严格检验两遍，所所以标注有很高的准确性</li>
-<li>标注的类别也丰富，人，车，遮挡物，干扰物等，能够更加方便来计算被遮挡的程度</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/10/24/MOT-Multi-Object-Tracking/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2313,7 +2320,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2324,7 +2331,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2335,7 +2342,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="AIC,cmu_rtpose,Pyranet," />
+  <meta name="keywords" content="AIC,Pyranet,cmu_rtpose," />
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="CMU_rtposevalidation_benchmark   日期 模型 nms inter min_above_thre distance_first scale score reason     1105 394k trained on train dataset 0.3 0.2 8 no 3 0.42    1105 60w trained on train dataset 0.2 0.">
-<meta name="keywords" content="AIC,cmu_rtpose,Pyranet">
+<meta name="keywords" content="AIC,Pyranet,cmu_rtpose">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AIC_test">
 <meta property="og:url" content="http://yoursite.com/2017/11/12/aic_test_log/index.html">
 <meta property="og:site_name" content="珍惜这一份幸运">
 <meta property="og:description" content="CMU_rtposevalidation_benchmark   日期 模型 nms inter min_above_thre distance_first scale score reason     1105 394k trained on train dataset 0.3 0.2 8 no 3 0.42    1105 60w trained on train dataset 0.2 0.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-29T07:16:34.000Z">
+<meta property="og:updated_time" content="2017-12-12T01:53:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AIC_test">
 <meta name="twitter:description" content="CMU_rtposevalidation_benchmark   日期 模型 nms inter min_above_thre distance_first scale score reason     1105 394k trained on train dataset 0.3 0.2 8 no 3 0.42    1105 60w trained on train dataset 0.2 0.">
@@ -615,6 +615,28 @@
 <td>0.28</td>
 <td>边角处对于 脚踝 的检测 出现误检测，会出现在 cornor处</td>
 </tr>
+<tr>
+<td>1201</td>
+<td>60w trained on train dataset</td>
+<td>0.05</td>
+<td>0.1</td>
+<td>8-0.55-3</td>
+<td>add_connection <em> conda </em> condb add_faster-rcnn_refinement</td>
+<td>1</td>
+<td>0.328</td>
+<td>增加 bbox 聚合零散的 检测目标；</td>
+</tr>
+<tr>
+<td>1201</td>
+<td>60w trained on train＋val dataset</td>
+<td>0.05</td>
+<td>0.1</td>
+<td>8-0.55-4</td>
+<td>add_connection <em> conda </em> condb</td>
+<td>1</td>
+<td><strong>0.351</strong></td>
+<td>在 train+val 数据集上训练，数据提升达到 0.2 个百分点</td>
+</tr>
 </tbody>
 </table>
 <h3 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h3><h4 id="0-05-0-1-8-no-1"><a href="#0-05-0-1-8-no-1" class="headerlink" title="0.05, 0.1, 8, no, 1"></a>0.05, 0.1, 8, no, 1</h4><ol>
@@ -716,9 +738,9 @@
           
             <a href="/tags/AIC/" rel="tag"># AIC</a>
           
-            <a href="/tags/cmu-rtpose/" rel="tag"># cmu_rtpose</a>
-          
             <a href="/tags/Pyranet/" rel="tag"># Pyranet</a>
+          
+            <a href="/tags/cmu-rtpose/" rel="tag"># cmu_rtpose</a>
           
         </div>
       
@@ -824,7 +846,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -835,7 +857,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -846,7 +868,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
