@@ -1,0 +1,9 @@
+/* Show all table rows by default */
+#pub_lists tbody tr {
+  display: table-row;
+}
+
+/* Hide the non-selected elements */
+#pub_lists tbody tr:not(.show) {
+  display: none;
+}
